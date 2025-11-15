@@ -7,16 +7,16 @@
     <meta name="keywords" content="HTML5 Template" />
     <meta name="description" content="پرفیوم - قالب نهایی فروشگاه  آنلاین ">
     <meta name="author" content="M-dehghan marziye.dehghan8006@gmail.com">
-    <link rel="icon" type="image/png" href="assets/images/icons/favicon.png">
-    <link rel="stylesheet" type="text/css" href="assets/fonts/awesome/css/custom.css">
-    <link href="assets/fonts/vazir/font-vazir.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="assets/plugin/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugin/magnific-popup/magnific-popup.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugin/owl-carousel/owl.carousel.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugin/photoswipe/photoswipe.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugin/photoswipe/default-skin/default-skin.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/plugin/sticky-icon/stickyicon.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/main-min.css">
+    <link rel="icon" type="image/png" href="/assets/images/icons/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/assets/fonts/awesome/css/custom.css">
+    <link href="/assets/fonts/vazir/font-vazir.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/assets/plugin/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/plugin/magnific-popup/magnific-popup.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/plugin/owl-carousel/owl.carousel.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/plugin/photoswipe/photoswipe.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/plugin/photoswipe/default-skin/default-skin.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/plugin/sticky-icon/stickyicon.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/main-min.css">
 </head>
 <body>
     <div class="bg-loader">
@@ -340,14 +340,14 @@
             </ul>
         </div>
     </div>
-    <script defer src="assets/plugin/jquery/jquery.min.js"></script>
-    <script defer src="assets/plugin/jquery.plugin/jquery.plugin.min.js"></script>
-    <script defer src="assets/plugin/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script defer src="assets/plugin/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script defer src="assets/plugin/owl-carousel/owl.carousel.min.js"></script>
-    <script defer src="assets/plugin/photoswipe/photoswipe.min.js"></script>
-    <script defer src="assets/plugin/photoswipe/photoswipe-ui-default.min.js"></script>
-    <script defer src="assets/plugin/jquery.floating/jquery.floating.min.js"></script>
-    <script defer src="assets/js/main.min.js"></script>
+    <script defer src="/assets/plugin/jquery/jquery.min.js"></script>
+    <script defer src="/assets/plugin/jquery.plugin/jquery.plugin.min.js"></script>
+    <script defer src="/assets/plugin/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script defer src="/assets/plugin/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script defer src="/assets/plugin/owl-carousel/owl.carousel.min.js"></script>
+    <script defer src="/assets/plugin/photoswipe/photoswipe.min.js"></script>
+    <script defer src="/assets/plugin/photoswipe/photoswipe-ui-default.min.js"></script>
+    <script defer src="/assets/plugin/jquery.floating/jquery.floating.min.js"></script>
+    <script defer src="/assets/js/main.min.js"></script>
 </body>
 </html>

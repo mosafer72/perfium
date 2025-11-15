@@ -3,33 +3,67 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
-use App\Models\Comment;
-use App\Models\OrderItem;
 use App\Models\Product;
-use App\Models\User;
-use Illuminate\Http\Request;
-use App\Models\Order;
+use App\Models\Category;
+use App\Models\Comment;
 
 class ProductController extends Controller
 {
-    public function show_more($id){
-        $product=Product::findOrFail($id);
-        $order_ids=$this->get_order_ids($product->id);
-        $users= (count($order_ids) > 0 )?  $this->get_users($order_ids) : []  ;
-        $comments=Comment::with("answer")->where("product_id",$id)->get();
-        return view("Pages.product",compact("product","users","comments"));
+    // نمایش بر اساس slug
+    public function show($slug)
+    {
+        $product = Product::with(['category'])
+            ->where('slug', $slug)
+            ->where('is_active', true)
+            ->where('show_on_site', true)
+            ->firstOrFail();
+
+        // کامنت‌ها (اگر سیستم کامنت داری)
+        $comments = Comment::with('answer')
+            ->where('product_id', $product->id)
+            ->orderByDesc('id')
+            ->get();
+
+        // محصولات مرتبط (همان دسته، به جز خود محصول)
+        $related = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->where('is_active', true)
+            ->where('show_on_site', true)
+            ->orderByDesc('id')
+            ->take(8)
+            ->get();
+
+        return view('Pages.product.product', compact('product', 'comments', 'related'));
     }
 
-    public function get_order_ids($product_id){
-        $order_ids=OrderItem::where("product_id",$product_id)->get("order_id");
-        return $order_ids;
+    // اگر خواستی با id هم ساپورت بشه
+    public function showById($id)
+    {
+        $product = Product::with(['category'])
+            ->where('id', $id)
+            ->where('is_active', true)
+            ->where('show_on_site', true)
+            ->firstOrFail();
+
+        // ریدایرکت قشنگ به slug
+        if ($product->slug) {
+            return redirect()->route('product.show', $product->slug);
+        }
+
+        // اگر slug نداره، از همین ویو استفاده کن
+        $comments = Comment::with('answer')
+            ->where('product_id', $product->id)
+            ->orderByDesc('id')
+            ->get();
+
+        $related = Product::where('category_id', $product->category_id)
+            ->where('id', '!=', $product->id)
+            ->where('is_active', true)
+            ->where('show_on_site', true)
+            ->orderByDesc('id')
+            ->take(8)
+            ->get();
+
+        return view('Pages.product.product', compact('product', 'comments', 'related'));
     }
-
-        public function get_users($order_ids){
-        $users_ids= (count($order_ids) > 0 )?  Order::whereIn("id",$order_ids)->get('user_id') : []  ;
-        $users= (count($users_ids) > 0 )?  User::whereIn("id",$users_ids)->get() : []  ;
-        return $users;
-    }
-
-
 }

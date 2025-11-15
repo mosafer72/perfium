@@ -3,117 +3,172 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Product;
 use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function __construct(){
-        Auth::loginUsingId(1);
-    }
+    /*
+    |--------------------------------------------------------------------------
+    | Index
+    |--------------------------------------------------------------------------
+    */
     public function index()
     {
-        $products = Product::with('category', 'user')->latest()->paginate(10);
-        return view('admin.products.index', data: compact('products'));
+        $products = Product::with('category')->orderBy('id', 'DESC')->paginate(20);
+        return view('Admin.products.index', compact('products'));
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Create
+    |--------------------------------------------------------------------------
+    */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.products.create', compact('categories'));
+        $categories = Category::orderBy('name')->get();
+        return view('Admin.products.create', compact('categories'));
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Store
+    |--------------------------------------------------------------------------
+    */
     public function store(Request $request)
     {
-
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
+            'english_title' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'sku' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string',
             'description' => 'nullable|string',
-            'quantity' => 'required|integer|min:0',
+
             'price' => 'required|integer|min:0',
+            'discount_percent' => 'nullable|integer|min:0|max:90',
+            'quantity' => 'nullable|integer|min:0',
+
+            'type' => 'required|string',
+            'image' => 'required|string',
+            'gallery' => 'nullable|string',
+            'banner' => 'nullable|string',
+
             'category_id' => 'required|exists:categories,id',
-            'discount_percent' => 'nullable|numeric|min:0|max:100',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'banner' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'type'      => 'required|in:0,1'
+            'is_active' => 'required|boolean',
+            'show_on_site' => 'required|boolean',
+
+            // TAB-MAIN
+            'show_in_tab' => 'nullable|boolean',
+            'tab_sort_order' => 'nullable|integer|min:0',
+            'tab_image' => 'nullable|string',
+
+            // perfume attributes
+            'gender' => 'nullable|string|max:255',
+            'nature' => 'nullable|string|max:255',
+            'season' => 'nullable|string|max:255',
+            'duration' => 'nullable|string|max:255',
+            'spread' => 'nullable|string|max:255',
         ]);
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-        }
-        if ($request->hasFile('banner')) {
-            $bannerPath = $request->file('banner')->store('products', 'public');
+        // checkbox
+        $data['show_in_tab'] = $request->has('show_in_tab');
+        $data['is_new'] = $request->has('is_new');
+        $data['is_trending'] = $request->has('is_trending');
+        $data['is_best_seller'] = $request->has('is_best_seller');
+        // slug auto
+        if (!$data['slug']) {
+            $data['slug'] = Str::slug($data['title'] . '-' . uniqid());
+        } else {
+            $data['slug'] = Str::slug($data['slug']);
         }
 
-        Product::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-            'image' => $imagePath,
-            'banner' => $bannerPath,
-            'is_active' => $request->has('is_active'),
-            'category_id' => $request->category_id,
-            'user_id' => Auth::id(),
-            'type' => $request->type,
-            // 'active_at' => $request->active_at,
-            'show_on_site' => $request->has('show_on_site'),
-            'discount_percent' => $request->discount_percent ?? 0
-        ]);
+        Product::create($data);
 
-        return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت اضافه شد.');
+        return redirect()->route('admin.products.index')
+            ->with('success', 'محصول با موفقیت ایجاد شد');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Edit
+    |--------------------------------------------------------------------------
+    */
     public function edit(Product $product)
     {
-        $categories = Category::all();
-        return view('admin.products.edit', compact('product', 'categories'));
+        $categories = Category::orderBy('name')->get();
+        return view('Admin.products.edit', compact('product', 'categories'));
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Update
+    |--------------------------------------------------------------------------
+    */
     public function update(Request $request, Product $product)
     {
-        $request->validate([
+        $data = $request->validate([
             'title' => 'required|string|max:255',
-            'quantity' => 'required|integer|min:0',
+            'english_title' => 'nullable|string|max:255',
+            'slug' => 'nullable|string|max:255',
+            'sku' => 'nullable|string|max:255',
+            'short_description' => 'nullable|string',
+            'description' => 'nullable|string',
+
             'price' => 'required|integer|min:0',
+            'discount_percent' => 'nullable|integer|min:0|max:90',
+            'quantity' => 'nullable|integer|min:0',
+
+            'type' => 'required|string',
+            'image' => 'required|string',
+            'gallery' => 'nullable|string',
+            'banner' => 'nullable|string',
+
             'category_id' => 'required|exists:categories,id',
-            'discount_percent' => 'nullable|numeric|min:0|max:100',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'banner' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
-            'type'      => 'required|in:0,1'
+            'is_active' => 'required|boolean',
+            'show_on_site' => 'required|boolean',
+
+            // TAB-MAIN
+            'show_in_tab' => 'nullable|boolean',
+            'tab_sort_order' => 'nullable|integer|min:0',
+            'tab_image' => 'nullable|string',
+
+            // perfume attributes
+            'gender' => 'nullable|string|max:255',
+            'nature' => 'nullable|string|max:255',
+            'season' => 'nullable|string|max:255',
+            'duration' => 'nullable|string|max:255',
+            'spread' => 'nullable|string|max:255',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('products', 'public');
-            $product->image = $imagePath;
-        }
-         if ($request->hasFile('banner')) {
-            $bannerPath = $request->file('banner')->store('products', 'public');
-            $product->banner = $bannerPath;
+        // checkbox
+        $data['show_in_tab'] = $request->has('show_in_tab');
+        $data['is_new'] = $request->has('is_new');
+        $data['is_trending'] = $request->has('is_trending');
+        $data['is_best_seller'] = $request->has('is_best_seller');
+        // slug auto
+        if (!$data['slug']) {
+            $data['slug'] = Str::slug($data['title'] . '-' . uniqid());
+        } else {
+            $data['slug'] = Str::slug($data['slug']);
         }
 
-        $product->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'quantity' => $request->quantity,
-            'price' => $request->price,
-            'is_active' => $request->has('is_active'),
-            'category_id' => $request->category_id,
-            'type' => $request->type,
-            // 'active_at' => $request->active_at,
-            'show_on_site' => $request->has('show_on_site'),
-            'discount_percent' => $request->discount_percent ?? 0
-        ]);
+        $product->update($data);
 
-        return redirect()->route('admin.products.index')->with('success', 'محصول با موفقیت ویرایش شد.');
+        return redirect()->route('admin.products.index')
+            ->with('success', 'محصول با موفقیت ویرایش شد');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | Destroy
+    |--------------------------------------------------------------------------
+    */
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('admin.products.index')->with('success', 'محصول حذف شد.');
+        return back()->with('success', 'محصول حذف شد');
     }
 }

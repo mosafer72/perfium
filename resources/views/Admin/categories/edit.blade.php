@@ -58,34 +58,68 @@
                     </div>
                 @endif
             <div class="form__box">
-                <form action="{{ route('admin.categories.update', $category) }}" method="POST" class="padding-30 bg-white border-radius-3">
+                <form action="{{ route('admin.categories.update', $category->id) }}" method="POST" class="padding-30 bg-white border-radius-3">
                     @csrf
                     @method('PUT')
 
                     <div class="row no-gutters">
+
                         <div class="col-12 margin-bottom-15">
                             <label class="label">عنوان دسته‌بندی</label>
                             <input type="text" name="name" value="{{ old('name', $category->name) }}" class="input" required>
                             @error('name')
-                                <span class="text-error">{{ $message }}</span>
+                            <span class="text-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="col-12 margin-bottom-15">
+                            <label class="label">اسلاگ (برای آدرس URL)</label>
+                            <input type="text" name="slug" value="{{ old('slug', $category->slug) }}" class="input">
+                            @error('slug')
+                            <span class="text-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="col-12 margin-bottom-15">
+                            <label class="label">آدرس تصویر دسته</label>
+                            <input type="text" name="image"
+                                value="{{ old('image', $category->image) }}"
+                                class="input">
+                            @error('image')
+                            <span class="text-error">{{ $message }}</span>
                             @enderror
                         </div>
 
                         <div class="col-12 margin-bottom-15">
                             <label class="label">توضیحات</label>
-                            <textarea name="description" class="input">{{ old('description', $category->description) }}</textarea>
+                            <textarea name="description" class="input" rows="2">{{ old('description', $category->description) }}</textarea>
+                        </div>
+
+                        <div class="col-12 margin-bottom-15">
+                            <label class="label">ترتیب نمایش</label>
+                            <input type="number" name="sort_order"
+                                value="{{ old('sort_order', $category->sort_order) }}"
+                                class="input" min="0" max="255">
+                        </div>
+
+                        <div class="col-12 margin-bottom-15">
+                            <label class="d-flex item-center">
+                                <input type="checkbox" name="show_in_home" value="1"
+                                    {{ old('show_in_home', $category->show_in_home) ? 'checked' : '' }}>
+                                <span class="margin-right-10">نمایش در صفحه اصلی</span>
+                            </label>
                         </div>
 
                         <div class="col-12 margin-bottom-15">
                             <label class="label">وضعیت</label>
                             <select name="status" class="input">
-                                <option value="1" {{ $category->status ? 'selected' : '' }}>فعال</option>
-                                <option value="0" {{ !$category->status ? 'selected' : '' }}>غیرفعال</option>
+                                <option value="active" {{ old('status', $category->status) == 'active' ? 'selected' : '' }}>فعال</option>
+                                <option value="inactive" {{ old('status', $category->status) == 'inactive' ? 'selected' : '' }}>غیرفعال</option>
                             </select>
                         </div>
 
                         <div class="col-12 margin-top-20">
-                            <button type="submit" class="btn btn-brand">ویرایش دسته‌بندی</button>
+                            <button type="submit" class="btn btn-brand">به‌روزرسانی دسته‌بندی</button>
                             <a href="{{ route('admin.categories.index') }}" class="btn btn-gray">بازگشت</a>
                         </div>
                     </div>

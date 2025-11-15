@@ -12,10 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('categories', function (Blueprint $table) {
-             $table->id();
+            $table->id();
+
+            // عنوان دسته (مثلاً: عطر مردانه)
             $table->string('name');
+
+            // برای URL خوانا: men-perfume, women-perfume, ...
+            $table->string('slug')->unique();
+
+            // آدرس تصویر/آیکن دسته (مثلاً assets/images/category/cat-1.png)
+            $table->string('image')->nullable();
+
+            // ترتیب نمایش در صفحه اصلی / لیست‌ها
+            $table->unsignedTinyInteger('sort_order')->default(0);
+
+            // آیا روی صفحه اصلی نمایش داده شود؟
+            $table->boolean('show_in_home')->default(true);
+
             $table->text('description')->nullable();
+
             $table->enum('status', ['active', 'inactive'])->default('active');
+
             $table->timestamps();
         });
     }

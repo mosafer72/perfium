@@ -5,63 +5,90 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Str;
+
 class CategoryController extends Controller
 {
-    // نمایش همه دسته‌بندی‌ها
+    // لیست دسته‌بندی‌ها
     public function index()
     {
-        $categories = Category::orderBy('id', 'DESC')->get();
+        $categories = Category::orderBy('sort_order')
+            ->orderByDesc('id')
+            ->get();
+
         return view('Admin.categories.index', compact('categories'));
     }
 
-    // نمایش فرم ایجاد دسته‌بندی جدید
+    // فرم ایجاد دسته
     public function create()
     {
-        
         return view('Admin.categories.create');
     }
 
-    // ذخیره دسته‌بندی جدید
+    // ذخیره دسته جدید
     public function store(Request $request)
     {
-        
-        $request->validate([
-            'name'        => 'required|max:255',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:active,inactive',
+        $data = $request->validate([
+            'name'         => 'required|max:255',
+            'slug'         => 'nullable|max:255|unique:categories,slug',
+            'description'  => 'nullable|string',
+            'image'        => 'nullable|string|max:255',
+            'sort_order'   => 'nullable|integer|min:0|max:255',
+            'show_in_home' => 'nullable|boolean',
+            'status'       => 'required|in:active,inactive',
         ]);
 
-        Category::create($request->all());
+        // اگر اسلاگ خالی بود، از عنوان تولید کن
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name'], '-');
+        }
+
+        $data['show_in_home'] = $request->boolean('show_in_home');
+        $data['sort_order']   = $data['sort_order'] ?? 0;
+
+        Category::create($data);
 
         return redirect()->route('admin.categories.index')
-                         ->with('success', 'دسته‌بندی جدید با موفقیت افزوده شد.');
+                         ->with('success', 'دسته‌بندی با موفقیت ایجاد شد.');
     }
 
-    // نمایش یک دسته خاص
+    // نمایش جزئیات (اگر بعداً خواستی استفاده کنی)
     public function show($id)
     {
         $category = Category::findOrFail($id);
         return view('Admin.categories.show', compact('category'));
     }
 
-    // نمایش فرم ویرایش دسته
+    // فرم ویرایش
     public function edit($id)
     {
         $category = Category::findOrFail($id);
         return view('Admin.categories.edit', compact('category'));
     }
 
-    // به‌روزرسانی دسته
+    // ذخیره ویرایش
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'        => 'required|max:255',
-            'description' => 'nullable|string',
-            'status'      => 'required|in:active,inactive',
+        $category = Category::findOrFail($id);
+
+        $data = $request->validate([
+            'name'         => 'required|max:255',
+            'slug'         => 'nullable|max:255|unique:categories,slug,' . $category->id,
+            'description'  => 'nullable|string',
+            'image'        => 'nullable|string|max:255',
+            'sort_order'   => 'nullable|integer|min:0|max:255',
+            'show_in_home' => 'nullable|boolean',
+            'status'       => 'required|in:active,inactive',
         ]);
 
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
+        if (empty($data['slug'])) {
+            $data['slug'] = Str::slug($data['name'], '-');
+        }
+
+        $data['show_in_home'] = $request->boolean('show_in_home');
+        $data['sort_order']   = $data['sort_order'] ?? 0;
+
+        $category->update($data);
 
         return redirect()->route('admin.categories.index')
                          ->with('success', 'دسته‌بندی با موفقیت به‌روزرسانی شد.');

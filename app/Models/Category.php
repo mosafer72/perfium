@@ -10,29 +10,29 @@ class Category extends Model
     // فیلدهایی که قابل پر شدن هستند
     protected $fillable = [
         'name',
+        'slug',
         'description',
+        'image',
+        'sort_order',
+        'show_in_home',
         'status',
     ];
-    public function Products()
+
+    // هر دسته چند محصول دارد
+    public function products()
     {
         return $this->hasMany(Product::class);
     }
 
-    // public function index()
-    //     {
-    //         $categories = Category::query()
-    //             ->with(['products' => function ($q) {
-    //                 $q->orderByDesc('id')   // یا ->latest('created_at')
-    //                 ->take(4);
-    //                 // اگر فقط محصولات قابل‌نمایش/فعال می‌خوای:
-    //                 // ->where('is_active', true)
-    //                 // ->where('show_on_site', true)
-    //                 // ->where(function($w){ $w->whereNull('active_at')->orWhere('active_at','<=',now()); });
-    //             }])
-    //             // اگر فقط دسته‌های فعال:
-    //             // ->where('status', 'active')
-    //             ->get();
+    // فقط دسته‌های فعال
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
 
-    //         return $categories; // کالکشن: هر Category شامل collection محصولات محدودشده
-    //     }
+    // دسته‌هایی که باید روی صفحه اصلی نمایش داده شوند
+    public function scopeHome($query)
+    {
+        return $query->where('show_in_home', true);
+    }
 }

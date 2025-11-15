@@ -3,8 +3,8 @@
 @section('title', 'ایجاد دسته‌بندی جدید')
 
 @section('content')
-<div class="content">
-     <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
+    <div class="content">
+        <div class="header d-flex item-center bg-white width-100 border-bottom padding-12-30">
             <div class="header__right d-flex flex-grow-1 item-center">
                 <span class="bars"></span>
                 <a class="header__logo" href="{{ url('/') }}"></a>
@@ -39,30 +39,33 @@
                 </div>
             </div>
             @if(session('success'))
-                    <div class="alert alert-success m-2 p-2">
-                        {{ session('success') }}
-                    </div>
-                @endif
-                
-            @if(session('error'))
-                    <div class="alert alert-danger">{{ session('error') }}</div>
-                @endif
+                <div class="alert alert-success m-2 p-2">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-                @if ($errors->any())
-                    
-                    <div class="alert alert-danger">
-                        <ul class="m-0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+            @if(session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+
+            @if ($errors->any())
+
+                <div class="alert alert-danger">
+                    <ul class="m-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="form__box">
-                <form action="{{ route('admin.categories.store') }}" method="POST" class="padding-30 bg-white border-radius-3">
+                <form action="{{ route('admin.categories.store') }}" method="POST"
+                    class="padding-30 bg-white border-radius-3">
                     @csrf
 
                     <div class="row no-gutters">
+
+                        {{-- عنوان دسته --}}
                         <div class="col-12 margin-bottom-15">
                             <label class="label">عنوان دسته‌بندی</label>
                             <input type="text" name="name" value="{{ old('name') }}" class="input" required>
@@ -71,16 +74,55 @@
                             @enderror
                         </div>
 
+                        {{-- اسلاگ --}}
                         <div class="col-12 margin-bottom-15">
-                            <label class="label">توضیحات</label>
-                            <textarea name="description" class="input">{{ old('description') }}</textarea>
+                            <label class="label">اسلاگ (برای آدرس URL)</label>
+                            <input type="text" name="slug" value="{{ old('slug') }}" class="input"
+                                placeholder="مثلاً men-perfume">
+                            <small class="text-gray">اگر خالی بگذاری، از روی عنوان ساخته می‌شود.</small>
+                            @error('slug')
+                                <span class="text-error">{{ $message }}</span>
+                            @enderror
                         </div>
 
+                        {{-- تصویر دسته (آیکن) --}}
+                        <div class="col-12 margin-bottom-15">
+                            <label class="label">آدرس تصویر دسته</label>
+                            <input type="text" name="image" value="{{ old('image', 'assets/images/category/cat-1.png') }}"
+                                class="input">
+                            <small class="text-gray">مثلاً: assets/images/category/cat-1.png</small>
+                            @error('image')
+                                <span class="text-error">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        {{-- توضیحات کوتاه (مثلاً سبک عطر) --}}
+                        <div class="col-12 margin-bottom-15">
+                            <label class="label">توضیحات</label>
+                            <textarea name="description" class="input" rows="2">{{ old('description') }}</textarea>
+                        </div>
+
+                        {{-- ترتیب نمایش --}}
+                        <div class="col-12 margin-bottom-15">
+                            <label class="label">ترتیب نمایش</label>
+                            <input type="number" name="sort_order" value="{{ old('sort_order', 0) }}" class="input" min="0"
+                                max="255">
+                        </div>
+
+                        {{-- نمایش در صفحه اصلی --}}
+                        <div class="col-12 margin-bottom-15">
+                            <label class="d-flex item-center">
+                                <input type="checkbox" name="show_in_home" value="1" {{ old('show_in_home', 1) ? 'checked' : '' }}>
+                                <span class="margin-right-10">نمایش در صفحه اصلی</span>
+                            </label>
+                        </div>
+
+                        {{-- وضعیت --}}
                         <div class="col-12 margin-bottom-15">
                             <label class="label">وضعیت</label>
                             <select name="status" class="input">
-                                <option value="active" selected>فعال</option>
-                                <option value="inactive">غیرفعال</option>
+                                <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>فعال</option>
+                                <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>غیرفعال</option>
                             </select>
                         </div>
 
@@ -92,6 +134,6 @@
                 </form>
             </div>
         </div>
-</div>
-       
+    </div>
+
 @endsection
