@@ -63,4 +63,22 @@ class CartController extends Controller
             'items'  => $cart
         ]);
     }
+
+
+    public function remove_ajax(string $id){
+
+        $pro=Cart::where(["product_id"=>$id,"user_id"=>auth()->user()->id])->first();
+        if($pro){
+            return response()->json([
+                'status' => true,
+                'message'  => "success"
+            ]);
+        }else{
+            return response()->json([
+                'status' => false,
+                'message' => 'محصول در سبد خرید وجود ندارد'
+            ], 404);
+        }
+
+    }
 }
