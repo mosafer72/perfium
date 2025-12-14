@@ -69,6 +69,7 @@ class CartController extends Controller
 
         $pro=Cart::where(["product_id"=>$id,"user_id"=>auth()->user()->id])->first();
         if($pro){
+            $pro->delete();
             return response()->json([
                 'status' => true,
                 'message'  => "success"
