@@ -340,7 +340,7 @@
             </ul>
         </div>
     </div>
-    <script defer src="/assets/plugin/jquery/jquery.min.js"></script>
+    <script  src="/assets/plugin/jquery/jquery.min.js"></script>
     <script defer src="/assets/plugin/jquery.plugin/jquery.plugin.min.js"></script>
     <script defer src="/assets/plugin/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script defer src="/assets/plugin/magnific-popup/jquery.magnific-popup.min.js"></script>
@@ -349,5 +349,6 @@
     <script defer src="/assets/plugin/photoswipe/photoswipe-ui-default.min.js"></script>
     <script defer src="/assets/plugin/jquery.floating/jquery.floating.min.js"></script>
     <script defer src="/assets/js/main.min.js"></script>
+    @yield("script")
 </body>
 </html>

@@ -13,6 +13,8 @@ return new class extends Migration
             $table->string('title')->nullable();
             $table->string('subtitle')->nullable();
             $table->string('image'); // عکس اسلایدر
+            $table->string('mini_image'); // عکس کوچک
+            $table->string('percent')->nullable(); // عکس کوچک
             $table->string('button_text')->nullable();
             $table->string('button_link')->nullable();
             $table->integer('sort_order')->default(0);

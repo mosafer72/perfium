@@ -11,14 +11,14 @@ use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\TicketController;
 use App\Http\Controllers\Admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
-Route::prefix('admin')->as('admin.')->group( function () {   
+Route::prefix('admin')->as('admin.')->group( function () {
     Route::get('', [DashboardController::class,"index"])->name("dashboard");
     Route::resource('/sliders', SliderController::class);
     Route::resource('/users', UserController::class);
     Route::patch('/users/{user}/toggle', [UserController::class, 'toggleStatus'])->name('users.toggle');
     Route::get('users/{user}/login-as', [UserController::class, 'loginAs'])->name('users.loginAs');
     Route::patch('/sliders/{slider}/toggle', [SliderController::class, 'toggleStatus'])->name('sliders.toggle');
-    Route::resource('categories', CategoryController::class); 
+    Route::resource('categories', CategoryController::class);
     Route::patch('/categories/{category}/toggle', [CategoryController::class, 'toggleStatus'])->name('categories.toggle');
     Route::resource('products', ProductController::class);
     Route::patch('products/{product}/toggle', [ProductController::class,'toggle'])->name('products.toggle');

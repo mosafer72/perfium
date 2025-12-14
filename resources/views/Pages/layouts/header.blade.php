@@ -6,7 +6,7 @@
                             <i class="fa-light fa-bars"></i>
                         </a>
                         <a href="index.html" class="logo">
-                            <picture><source srcset="assets/images/logo.webp" type="image/webp"><img src="assets/images/logo.png" alt="logo" width="153" height="44" /></picture>
+                            <picture><source srcset="/assets/images/logo.webp" type="image/webp"><img src="/assets/images/logo.png" alt="logo" width="153" height="44" /></picture>
                         </a>
                         <div class="header-search hs-simple">
                             <form action="#" class="input-wrapper">
@@ -48,7 +48,7 @@
                                     <div class="product product-wishlist">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <picture><source srcset="assets/images/wishlist/product-1.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/wishlist/product-1.jpg" width="100" height="100"
+                                                <picture><source srcset="/assets/images/wishlist/product-1.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/wishlist/product-1.jpg" width="100" height="100"
                                                      alt="product" /></picture>
                                             </a>
                                             <button class="btn btn-link btn-close">
@@ -65,7 +65,7 @@
                                     <div class="product product-wishlist">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <picture><source srcset="assets/images/wishlist/product-2.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/wishlist/product-2.jpg" width="100" height="100"
+                                                <picture><source srcset="/assets/images/wishlist/product-2.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/wishlist/product-2.jpg" width="100" height="100"
                                                      alt="product" /></picture>
                                             </a>
                                             <button class="btn btn-link btn-close">
@@ -84,7 +84,7 @@
                                     <div class="product product-wishlist">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <picture><source srcset="assets/images/wishlist/product-3.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/wishlist/product-3.jpg" width="100" height="100"
+                                                <picture><source srcset="/assets/images/wishlist/product-3.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/wishlist/product-3.jpg" width="100" height="100"
                                                      alt="product" /></picture>
                                             </a>
                                             <button class="btn btn-link btn-close">
@@ -122,7 +122,7 @@
                                     <div class="product product-cart">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <picture><source srcset="assets/images/cart/product-1.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/cart/product-1.jpg" alt="product" width="80"
+                                                <picture><source srcset="/assets/images/cart/product-1.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/cart/product-1.jpg" alt="product" width="80"
                                                      height="88" /></picture>
                                             </a>
                                             <button class="btn btn-link btn-close">
@@ -140,7 +140,7 @@
                                     <div class="product product-cart">
                                         <figure class="product-media">
                                             <a href="product.html">
-                                                <picture><source srcset="assets/images/cart/product-2.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/cart/product-2.jpg" alt="product" width="80"
+                                                <picture><source srcset="/assets/images/cart/product-2.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/cart/product-2.jpg" alt="product" width="80"
                                                      height="88" /></picture>
                                             </a>
                                             <button class="btn btn-link btn-close">
@@ -233,11 +233,11 @@
                                                             <label class="ls-m">یا وارد شوید با</label>
                                                             <div class="social-links">
                                                                 <a href="#"
-                                                                   class="social-link"><img src="assets/images/social/whatsapp-silver.png"/></a>
+                                                                   class="social-link"><img src="/assets/images/social/whatsapp-silver.png"/></a>
                                                                 <a href="#"
-                                                                   class="social-link"><img src="assets/images/social/instagram-silver.png" /></a>
+                                                                   class="social-link"><img src="/assets/images/social/instagram-silver.png" /></a>
                                                                 <a href="#"
-                                                                   class="social-link"><img src="assets/images/social/x-silver.png" /></a>
+                                                                   class="social-link"><img src="/assets/images/social/x-silver.png" /></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -271,11 +271,11 @@
                                                             <label class="ls-m">یا ثبت نام با</label>
                                                             <div class="social-links">
                                                                 <a href="#"
-                                                                   class="social-link"><img src="assets/images/social/whatsapp-silver.png"/></a>
+                                                                   class="social-link"><img src="/assets/images/social/whatsapp-silver.png"/></a>
                                                                 <a href="#"
-                                                                   class="social-link"><img src="assets/images/social/instagram-silver.png" /></a>
+                                                                   class="social-link"><img src="/assets/images/social/instagram-silver.png" /></a>
                                                                 <a href="#"
-                                                                   class="social-link"><img src="assets/images/social/x-silver.png" /></a>
+                                                                   class="social-link"><img src="/assets/images/social/x-silver.png" /></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -331,7 +331,7 @@
                                             <li>
                                                 <div class="banner-fixed menu-banner menu-banner4 content-middle">
                                                     <figure>
-                                                        <picture><source srcset="assets/images/menu/banner-4.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/menu/banner-4.jpg" alt="Menu Banner"
+                                                        <picture><source srcset="/assets/images/menu/banner-4.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/menu/banner-4.jpg" alt="Menu Banner"
                                                              width="235" height="347" /></picture>
                                                     </figure>
                                                     <div class="banner-content rtl">
@@ -398,7 +398,7 @@
                                             <li>
                                                 <div class="menu-banner banner-fixed menu-banner5">
                                                     <figure>
-                                                        <picture><source srcset="assets/images/menu/banner-5.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/menu/banner-5.jpg" alt="Menu Banner"
+                                                        <picture><source srcset="/assets/images/menu/banner-5.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/menu/banner-5.jpg" alt="Menu Banner"
                                                             width="235" height="461" /></picture>
                                                     </figure>
                                                     <div class="banner-content rtl">
@@ -458,7 +458,7 @@
                                             <li>
                                                 <div class="menu-banner banner-fixed menu-banner5">
                                                     <figure>
-                                                        <picture><source srcset="assets/images/menu/banner-6.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/menu/banner-6.jpg" alt="Menu Banner"
+                                                        <picture><source srcset="/assets/images/menu/banner-6.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/menu/banner-6.jpg" alt="Menu Banner"
                                                              width="235" height="433" /></picture>
                                                     </figure>
                                                     <div class="banner-content rtl">
@@ -537,25 +537,25 @@
                                             <div class="row">
                                                 <div class="col-md-3 col-lg-3 col-6">
                                                     <figure>
-                                                        <picture><source srcset="assets/images/menu/1.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/menu/1.png"  alt="Menu Banner" width="172"
+                                                        <picture><source srcset="/assets/images/menu/1.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/menu/1.png"  alt="Menu Banner" width="172"
                                                              height="106" /></picture>
                                                     </figure>
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-6">
                                                     <figure>
-                                                        <picture><source srcset="assets/images/menu/2.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/menu/2.png" alt="Menu Banner" width="172"
+                                                        <picture><source srcset="/assets/images/menu/2.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/menu/2.png" alt="Menu Banner" width="172"
                                                              height="106" /></picture>
                                                     </figure>
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-6">
                                                     <figure>
-                                                        <picture><source srcset="assets/images/menu/3.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/menu/3.png" alt="Menu Banner" width="172"
+                                                        <picture><source srcset="/assets/images/menu/3.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/menu/3.png" alt="Menu Banner" width="172"
                                                              height="106" /></picture>
                                                     </figure>
                                                 </div>
                                                 <div class="col-md-3 col-lg-3 col-6">
                                                     <figure>
-                                                        <picture><source srcset="assets/images/menu/4.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/menu/4.png" alt="Menu Banner" width="172"
+                                                        <picture><source srcset="/assets/images/menu/4.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/menu/4.png" alt="Menu Banner" width="172"
                                                              height="106" /></picture>
                                                     </figure>
                                                 </div>
@@ -664,7 +664,7 @@
                                             </div>
                                             <div class="col-6 col-sm-4 col-md-4 col-lg-3 menu-banner menu-banner1 banner banner-fixed">
                                                 <figure>
-                                                    <picture><source srcset="assets/images/menu/banner-1.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/images/menu/banner-1.jpg" alt="Menu banner" width="221"
+                                                    <picture><source srcset="/assets/images/menu/banner-1.webp" type="image/webp"><img loading="lazy" decoding="async" src="/assets/images/menu/banner-1.jpg" alt="Menu banner" width="221"
                                                          height="330" /></picture>
                                                 </figure>
                                                 <div class="banner-content y-50 text-right rtl">

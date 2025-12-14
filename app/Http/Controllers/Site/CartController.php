@@ -9,18 +9,19 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-   
+
     public function show()
     {
         $banners = Cart::orderBy('created_at', 'desc')->get();
         return view('Pages.cart.show', compact('banners'));
     }
 
-    // 
+    //
     public function add($id)
     {
         $product=Product::findOrFail($id);
-        $cart=Cart::where(["user_id"=>auth()->user()->id,"product_id" => $product->id])->first();
+        // return response()->json($product->id);
+        $cart=Cart::where(["user_id"=>1,"product_id" => $product->id])->first();
         if(!$cart){
             Cart::create([
                 'user_id' => auth()->user()->id,
@@ -28,11 +29,15 @@ class CartController extends Controller
                 'qty' => 1,
                 "unit_price"=>$product->price
             ]);
-            return redirect()->route('product.show_more',["id"=>$id])->with('success', 'بنر با موفقیت ایجاد شد.');
+            return response()->json([
+                "message"=>"عملیات با موفقیت انجام شد"
+            ]);
         }else{
-            return redirect()->route('product.show_more',["id"=>$id])->with('warning', 'این محصول در سید خرید شما وجود دارد!');
+            return response()->json([
+                "message"=>"این محصول در سبد خرید شما موجود است."
+            ]);
         }
-        
+
     }
 
 
@@ -46,6 +51,16 @@ class CartController extends Controller
             abort(404);
         }
 
-       
+
+    }
+
+    public function cart_ajaxـlist(){
+
+        $cart=Cart::with("product")->where(["user_id"=>auth()->user()->id])->get();
+
+        return response()->json([
+            'status' => true,
+            'items'  => $cart
+        ]);
     }
 }

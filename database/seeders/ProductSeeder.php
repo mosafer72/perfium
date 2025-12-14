@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ProductSeeder extends Seeder
 {
@@ -24,56 +25,65 @@ class ProductSeeder extends Seeder
 
         for ($i = 1; $i <= 10; $i++) {
 
-            // تخفیف برای ۵ تای اول
+            // تخفیف برای پنج محصول اول
             $discount = $i <= 5 ? rand(10, 40) : 0;
 
+            // تصویر اصلی
+            $mainImage = "assets/images/products/product" . rand(1, 14) . ".jpg";
+
+            // گالری 3 عکس رندوم
+            $gallery = [
+                "assets/images/products/product" . rand(1, 14) . ".jpg",
+                "assets/images/products/product" . rand(1, 14) . ".jpg",
+                "assets/images/products/product" . rand(1, 14) . ".jpg",
+            ];
+
             Product::create([
-                'user_id'=>1,
+                'user_id' => 1,
+
+                // basic info
                 'title' => $titles[$i - 1],
                 'english_title' => 'Perfume ' . $i,
-                'slug' => 'perfume-' . $i,
+                'slug' => Str::slug('perfume-' . $i),
                 'sku' => 'SKU-' . str_pad($i, 4, '0', STR_PAD_LEFT),
 
-                // Descriptions
+                // description
                 'short_description' => 'این یک توضیح کوتاه برای محصول ' . $titles[$i - 1] . ' است.',
-                'description' => 'توضیحات کامل محصول ' . $titles[$i - 1] . ' شامل رایحه، نت‌ها و ویژگی‌ها.',
+                'description' => 'توضیحات کامل محصول ' . $titles[$i - 1] . ' شامل رایحه، نت‌ها، تجربه مصرف‌کننده و کیفیت ساخت.',
 
-                // Pricing
+                // price
                 'price' => rand(1500000, 9000000),
                 'discount_percent' => $discount,
                 'quantity' => rand(5, 30),
 
-                // Types
+                // type
                 'type' => 'perfume',
 
-                // Images
-                'image' => "assets/images/" . rand(1, 14) . ".webp",
-                'gallery' => json_encode([
-                    "assets/images/" . rand(1, 14) . ".webp",
-                    "assets/images/" . rand(1, 14) . ".webp",
-                ]),
-                'banner' => "assets/images/banner-" . rand(1, 5) . ".png",
+                // images
+                'image' => $mainImage,
+                'gallery' => json_encode($gallery),
+                'banner' => "assets/images/banners/banner-" . rand(1, 5) . ".jpg",
 
-                // Category (فعلاً همه در دسته ۱)
+                // category (موقت)
                 'category_id' => 1,
 
-                // Boolean
+                // flags
                 'is_active' => 1,
                 'show_on_site' => 1,
 
-                // Tab Section
+                // tab-main
                 'show_in_tab' => $i <= 5 ? 1 : 0,
                 'tab_sort_order' => $i,
-                'tab_image' => "assets/images/" . rand(1, 14) . ".webp",
+                'tab_image' => "assets/images/products/product" . rand(1, 14) . ".jpg",
 
-                // Perfume attributes
+                // perfume specs
                 'gender' => $i % 2 == 0 ? 'مردانه' : 'زنانه',
-                'nature' => 'خنک و شیرین',
-                'season' => 'چهار فصل',
+                'nature' => $i % 2 == 0 ? 'گرم و شیرین' : 'خنک و ملایم',
+                'season' => $i % 2 == 0 ? 'فصول سرد' : 'فصول گرم',
                 'duration' => rand(1, 3) . ' روز',
                 'spread' => rand(1, 2) . ' روز',
 
-                // Highlights for main page
+                // homepage badges
                 'is_new' => $i <= 3 ? 1 : 0,
                 'is_trending' => $i <= 4 ? 1 : 0,
                 'is_best_seller' => $i <= 2 ? 1 : 0,

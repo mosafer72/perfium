@@ -13,6 +13,8 @@ class Slider extends Model
         'button_text',
         'button_link',
         'sort_order',
-        'is_active'
+        'is_active',
+        'mini_image',
+        'percent',
     ];
 }

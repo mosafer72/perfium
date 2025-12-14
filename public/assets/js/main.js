@@ -210,7 +210,7 @@ window.themeparsi = {};
             paddingOffsetBottom: 0,
         },
         templateCartAddedAlert: '<div class="alert alert-simple alert-btn cart-added-alert">' +
-            '<a href="cart.html" class="btn btn-success btn-md">سبد خرید</a>' +
+            '<a href="/cart/show" class="btn btn-success btn-md">سبد خرید</a>' +
             '<span>"{{name}}" به سبد خرید افزوده شد </span>' +
             '<button type="button" class="btn btn-link btn-close"><i class="fa-solid fa-xmark"></i></button>' +
             '</div>',
@@ -334,8 +334,8 @@ window.themeparsi = {};
     }
     /**
      * @function windowResized
-     * @param {number} timeStamp 
-     * @returns 
+     * @param {number} timeStamp
+     * @returns
      * @since 1.2.1
      */
     themeparsi.windowResized = function (timeStamp) {
@@ -354,7 +354,7 @@ window.themeparsi = {};
     /**
      * @function doLoading
      * Show loading overlay
-     * @param {string|jQuery} selector 
+     * @param {string|jQuery} selector
      * @param {string} type This can be omitted.
      */
     themeparsi.doLoading = function (selector, type) {
@@ -373,7 +373,7 @@ window.themeparsi = {};
     /**
      * @function endLoading
      * Hide loading overlay
-     * @param {string|jQuery} selector 
+     * @param {string|jQuery} selector
      */
     themeparsi.endLoading = function (selector) {
         themeparsi.$(selector).find('.d-loading').remove();
@@ -381,7 +381,7 @@ window.themeparsi = {};
     }
     /**
      * @function appear
-     * 
+     *
      * @param {HTMLElement} el
      * @param {function} fn
      * @param {object} options
@@ -625,7 +625,7 @@ window.themeparsi = {};
     }
     /**
      * @function initShowVendorSearch
-     * 
+     *
      * @param {string} selector
      */
     themeparsi.initShowVendorSearch = function (selector) {
@@ -1314,9 +1314,9 @@ window.themeparsi = {};
     }
     /**
      * Scroll To
-     * 
-     * @param {string} arg 
-     * @param {number} duration 
+     *
+     * @param {string} arg
+     * @param {number} duration
      */
     themeparsi.scrollTo = function (arg, duration) {
         var offset = 0;
@@ -2207,7 +2207,7 @@ window.themeparsi = {};
         }
         var onTranslated = function (e) {
             $(window).trigger('appear.check');
-            // Video Play   
+            // Video Play
             var $el = $(e.currentTarget),
                 $activeVideos = $el.find('.owl-item.active video');
             $el.find('.owl-item:not(.active) video').each(function () {
@@ -2809,7 +2809,7 @@ window.themeparsi = {};
     })();
     /**
      * @function floatSVG
-     * @param {string|jQuery} selector 
+     * @param {string|jQuery} selector
      * @param {object} options
      */
     themeparsi.floatSVG = (function () {

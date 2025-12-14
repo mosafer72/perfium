@@ -11,60 +11,59 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 
-            // عنوان فارسی
+            // عنوان‌ها
             $table->string('title');
-
-            // عنوان انگلیسی (اختیاری)
             $table->string('english_title')->nullable();
 
-            // اسلاگ برای URL
+            // URL / Slug
             $table->string('slug')->unique();
 
-            // SKU یا کد محصول
+            // SKU
             $table->string('sku')->nullable();
 
-            // توضیح کوتاه
+            // توضیحات
             $table->string('short_description')->nullable();
-
-            // توضیح کامل (HTML)
             $table->longText('description')->nullable();
 
-            // قیمت
+            // قیمت‌ها
             $table->unsignedBigInteger('price');
-
-            // درصد تخفیف (۰ تا ۹۰)
             $table->unsignedTinyInteger('discount_percent')->default(0);
-
-            // موجودی انبار
             $table->unsignedInteger('quantity')->default(0);
 
-            // عکس اصلی محصول
+            // تصاویر
             $table->string('image')->nullable();
-
-            // گالری (JSON از چند عکس)
             $table->json('gallery')->nullable();
-
-            // بنر تبلیغاتی (اختیاری)
             $table->string('banner')->nullable();
 
-            // نمایش یا عدم نمایش روی سایت
+            // نمایش در سایت
             $table->boolean('show_on_site')->default(true);
-
-            // فعال یا غیرفعال بودن محصول
             $table->boolean('is_active')->default(true);
 
-            // نوع محصول (مثلاً: perfume, deodorant, gift-set)
+            // نوع محصول
             $table->string('type')->nullable();
 
             // دسته‌بندی
-            $table->foreignId('category_id')
-                ->constrained()
-                ->onDelete('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade');
 
-            // کاربر ثبت‌کننده محصول
-            $table->foreignId('user_id')
-                ->constrained()
-                ->onDelete('cascade');
+            // کاربر ثبت‌کننده
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+
+            // ---- بخش ویژه Tab-Main ----
+            $table->boolean('show_in_tab')->default(false);
+            $table->unsignedInteger('tab_sort_order')->default(0);
+            $table->string('tab_image')->nullable();
+
+            // ---- ویژگی‌های عطری ----
+            $table->string('gender')->nullable();   // مردانه / زنانه / یونیسکس
+            $table->string('nature')->nullable();   // طبع
+            $table->string('season')->nullable();   // فصل مناسب
+            $table->string('duration')->nullable(); // ماندگاری
+            $table->string('spread')->nullable();   // پخش بو
+
+            // ---- هایلایت‌های صفحه اصلی ----
+            $table->boolean('is_new')->default(false);
+            $table->boolean('is_trending')->default(false);
+            $table->boolean('is_best_seller')->default(false);
 
             $table->timestamps();
         });

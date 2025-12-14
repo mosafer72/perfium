@@ -15,20 +15,24 @@ class SliderSeeder extends Seeder
             'title'       => "جذاب‌ترین عطرهای روز دنیا",
             'subtitle'    => "پرفروش‌ترین عطرهای ۲۰۲۵",
             'image'       => "/assets/images/intro/slide1.png",
+            'mini_image'       => "/assets/images/intro/1_leave-98x128.png",
             'button_text' => "مشاهده محصولات",
             'button_link' => "/shop",
             'sort_order'  => 1,
             'is_active'   => true,
+            'percent'   => 30,
         ]);
 
         Slider::create([
             'title'       => "جدیدترین رایحه‌ها با پرفیوم",
             'subtitle'    => "ترندها و برندهای مطرح جهانی",
             'image'       => "/assets/images/intro/slide2.png",
+            'mini_image'       => "/assets/images/intro/1_leave-98x128.png",
             'button_text' => "خرید عطر",
             'button_link' => "/shop",
             'sort_order'  => 2,
             'is_active'   => true,
+            'percent'   => 10,
         ]);
     }
 }
