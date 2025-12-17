@@ -18,6 +18,8 @@ Route::get('/cart/show', [CartController::class,"show"])->name("cart.show");
 Route::get('/cart/{id}/add', [CartController::class,"add"])->name("cart.add");
 Route::get('/cart/{id}/delete', [CartController::class,"delete"])->name("cart.delete");
 Route::get('/cart_ajax/list', [CartController::class,"cart_ajaxـlist"])->name("cart.cart_ajaxـlist");
+Route::get('/cart/{id}/ajax_delete', [CartController::class,"ajax_delete"])->name("cart.ajax_delete");
+
 
 
 

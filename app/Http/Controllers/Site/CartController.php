@@ -65,7 +65,7 @@ class CartController extends Controller
     }
 
 
-    public function remove_ajax(string $id){
+    public function ajax_delete(string $id){
 
         $pro=Cart::where(["product_id"=>$id,"user_id"=>auth()->user()->id])->first();
         if($pro){
