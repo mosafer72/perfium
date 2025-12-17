@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('special_offers', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('orders', function (Blueprint $table) {
+            $table->unsignedInteger('province')->nullable();
+            $table->unsignedInteger('city')->nullable();
         });
     }
 
@@ -22,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('special_offers');
+        Schema::table('orders', function (Blueprint $table) {
+            $table->dropColumn("province");
+            $table->dropColumn("city");
+        });
     }
 };

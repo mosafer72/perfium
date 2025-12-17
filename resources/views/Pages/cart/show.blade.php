@@ -37,10 +37,11 @@
                                                 <figure>
                                                     <a href="product.html">
                                                         <picture>
-                                                            <source srcset="{{ asset($product->product->image) }}" type="image/webp">
+                                                            <source srcset="{{ asset($product->product->image) }}"
+                                                                type="image/webp">
                                                             <img loading="lazy" decoding="async"
-                                                                src="{{ asset($product->product->image) }}" width="100" height="100"
-                                                                alt="product">
+                                                                src="{{ asset($product->product->image) }}" width="100"
+                                                                height="100" alt="product">
                                                         </picture>
                                                     </a>
                                                 </figure>
@@ -55,13 +56,14 @@
                                             </td>
                                             <td class="product-quantity">
                                                 <!-- <div class="input-group">
-                                                    <button class="quantity-minus d-icon-minus"></button>
-                                                    <input class="quantity form-control" type="number" min="1" max="1000000">
-                                                    <button class="quantity-plus d-icon-plus"></button>
-                                                </div> -->
+                                                                                    <button class="quantity-minus d-icon-minus"></button>
+                                                                                    <input class="quantity form-control" type="number" min="1" max="1000000">
+                                                                                    <button class="quantity-plus d-icon-plus"></button>
+                                                                                </div> -->
                                             </td>
                                             <td class="product-price">
-                                                <span class="amount">{{ number_format($product->unit_price*$product->qty) }} تومان</span>
+                                                <span class="amount">{{ number_format($product->unit_price * $product->qty) }}
+                                                    تومان</span>
                                             </td>
                                             <td class="product-close">
                                                 <a href="#" class="product-remove" title="حذف محصول">
@@ -90,11 +92,11 @@
                                 </button>
                             </div>
                         </div>
-                         @php
-                            $subtotal = collect($cart)->sum(fn($i) => $i->qty * $i->unit_price );
-                            $coupon   = session('cart_coupon');
+                        @php
+                            $subtotal = collect($cart)->sum(fn($i) => $i->qty * $i->unit_price);
+                            $coupon = session('cart_coupon');
                             $discount = $coupon['discount'] ?? 0;
-                            $payable  = max($subtotal - $discount, 0);
+                            $payable = max($subtotal - $discount, 0)+90000;
                         @endphp
                         <aside class="col-lg-4 sticky-sidebar-wrapper">
                             <div class="pin-wrapper" style="height: 813.109px;">
@@ -109,7 +111,8 @@
                                                         <h4 class="summary-subtitle">جمع بعد از تخفیف</h4>
                                                     </td>
                                                     <td>
-                                                        <p class="summary-subtotal-price">{{ number_format($subtotal) }} تومان</p>
+                                                        <p class="summary-subtotal-price">{{ number_format($subtotal) }}
+                                                            تومان</p>
                                                     </td>
                                                 </tr>
                                                 <tr class="sumnary-shipping shipping-row-last">
@@ -118,28 +121,10 @@
                                                         <ul>
                                                             <li>
                                                                 <div class="custom-radio">
-                                                                    <input type="radio" id="flat_rate" name="shipping"
-                                                                        class="custom-control-input" checked="">
-                                                                    <label class="custom-control-label" for="flat_rate">
-                                                                        پست
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="custom-radio">
-                                                                    <input type="radio" id="free-shipping" name="shipping"
-                                                                        class="custom-control-input">
-                                                                    <label class="custom-control-label" for="free-shipping">
-                                                                        پیک رایگان
-                                                                    </label>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <div class="custom-radio">
                                                                     <input type="radio" id="local_pickup" name="shipping"
-                                                                        class="custom-control-input">
+                                                                        class="custom-control-input" checked>
                                                                     <label class="custom-control-label" for="local_pickup">
-                                                                        ارسال پیشتاز
+                                                                        ارسال پیشتاز ( هزینه ۹۰ هزار تومان)
                                                                     </label>
                                                                 </div>
                                                             </li>
@@ -151,27 +136,17 @@
                                         <div class="shipping-address">
                                             <label>ارسال خرید به <strong>شیراز</strong></label>
                                             <div class="select-box">
-                                                <select name="country" class="form-control">
-                                                    <option value="ir" selected="">ایران</option>
-                                                    <option value="uk"> تاجیکستان</option>
-                                                    <option value="fr">آذربایجان</option>
-                                                    <option value="aus">ترکیه</option>
+                                                <select name="country"  onchange="getcities(this.value)" class="form-control" id="state">
+
                                                 </select>
                                             </div>
                                             <div class="select-box">
-                                                <select name="country" class="form-control">
-                                                    <option value="us" selected="">ایران</option>
-                                                    <option value="uk">تاجیکستان</option>
-                                                    <option value="fr">آذربایجان</option>
-                                                    <option value="aus">ترکیه</option>
+                                                <select name="country" class="form-control"  id="city">
+
                                                 </select>
                                             </div>
-                                            <input type="text" class="form-control" name="code" placeholder="کشور / شهر">
-                                            <input type="text" class="form-control" name="code" placeholder="بخش">
-                                            <a href="#" class="btn btn-md btn-dark btn-rounded btn-outline">
-                                                به روزرسانی
-                                                جمع کل
-                                            </a>
+                                            <input type="text" class="form-control" name="address" placeholder="آدرس">
+                                            <input type="text" class="form-control" name="code" placeholder="گد پستی">
                                         </div>
                                         <table class="total">
                                             <tbody>
@@ -180,7 +155,8 @@
                                                         <h4 class="summary-subtitle">جمع</h4>
                                                     </td>
                                                     <td>
-                                                        <p class="summary-total-price ls-s">{{ number_format($payable) }} تومان</p>
+                                                        <p class="summary-total-price ls-s">{{ number_format($payable) }}
+                                                            تومان</p>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -440,4 +416,56 @@
         </footer>
         <div class="minipopup-area"></div>
     </div>
+@endsection
+@section("script")
+    <script>
+        get_province();
+        async function get_province() {
+            let stateSelect = $("#state");
+            const url = "https://www.iran-locations-api.ir/api/v1/fa/states";
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const result = await response.json();
+                $.each(result, function (i, state) {
+                    stateSelect.append(
+                        `<option value="${state.id}">${state.name}</option>`
+                    );
+                });
+                console.log(result);
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+        getcities(1);
+        async function getcities (stateId) {
+            console.log(stateId)
+            let citySelect = $("#city");
+
+            // ریست شهرها
+            citySelect.text('<option value="">انتخاب شهر</option>');
+
+            if (!stateId) return;
+
+            const url_city = "https://www.iran-locations-api.ir/api/v1/fa/cities?state_id="+stateId
+            try {
+                const response = await fetch(url_city);
+                if (!response.ok) {
+                    throw new Error(`Response status: ${response.status}`);
+                }
+                const result = await response.json();
+                $.each(result, function (i, state) {
+                    citySelect.append(
+                        `<option value="${state.id}">${state.name}</option>`
+                    );
+                });
+                console.log(result);
+            } catch (error) {
+                console.error(error.message);
+            }
+        };
+
+    </script>
 @endsection
