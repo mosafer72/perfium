@@ -68,7 +68,6 @@ class ZarinpalGateway implements PaymentGateway
 
         $res = Http::withHeaders(['accept'=>'application/json'])
             ->post($this->baseUrl().'/payment/request.json', $payload);
-dd($res->ok());
 
         if (!$res->ok()) {
             $payment->update(['status'=>'failed', 'callback_payload'=>['error'=>$res->json()]]);

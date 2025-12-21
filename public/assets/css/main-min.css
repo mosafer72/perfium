@@ -9404,13 +9404,13 @@ blockquote {
 .alert-warning {
     background-color: #d26e4b;
     border-color: #d26e4b;
-    color: #d26e4b;
+    color: #ffffff;
 }
 
 .alert-danger {
     background-color: #b10001;
     border-color: #b10001;
-    color: #b10001;
+    color: #ffffff;
 }
 
 .alert-black {

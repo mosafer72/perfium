@@ -10,4 +10,8 @@ class OrderCotroller extends Controller
     public function index(){
         return view("order.show");
     }
+
+    public function result(Request $request){
+        return view("Pages.orders.result");
+    }
 }

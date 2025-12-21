@@ -162,9 +162,9 @@
                                     <label>جمع قبل از تخفیف:</label>
                                     <span class="price">6,000,000 تومان</span>
                                 </div>
-                                <div class="cart-action">
-                                    <a href="cart.html" class="btn btn-dark btn-link">نمایش خرید </a>
-                                    <a href="checkout.html" class="btn btn-dark mt-4  btn-rounded  btn-block btn-gradient"><span>پرداخت</span></a>
+                                <div class="">
+                                    <a href="{{ route("cart.show") }}" class="btn btn-dark btn-link">نمایش خرید </a>
+                                    <a href="{{ route("cart.show") }}" class="btn btn-dark mt-4  btn-rounded  btn-block btn-gradient"><span>پرداخت</span></a>
                                 </div>
                             </div>
                         </div>

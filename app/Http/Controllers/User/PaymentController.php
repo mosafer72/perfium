@@ -17,12 +17,12 @@ class PaymentController extends Controller
     /** شروع پرداخت و ریدایرکت به درگاه */
     public function start(Order $order, PaymentGateway $gateway)
     {
-        // امنیت: فقط 
+        // امنیت: فقط
         // صاحب سفارش
         abort_unless($order->user_id === Auth::id(), 403);
 
         if ($order->status !== 'pending') {
-            return redirect()->route('orders.show', $order)->withErrors(['pay' => 'این سفارش قابل پرداخت نیست.']);
+            return redirect()->route('orders.reuslt', $order)->withErrors('این سفارش قابل پرداخت نیست.');
         }
         $redirectUrl = $gateway->create($order); // رکورد Payment نیز در create ساخته شد
         return redirect()->away($redirectUrl);
@@ -64,7 +64,7 @@ class PaymentController extends Controller
         if (!$result->success) {
             $payment->update(['status' => 'failed']);
             $order->update(['status' => 'pending']); // یا canceled اگر سناریوت اینه
-            return redirect()->route('orders.show', $order)->withErrors(['pay' => 'پرداخت ناموفق بود.']);
+            return redirect()->route('orders.result', $order)->withErrors('پرداخت ناموفق بود.');
         }
 
         // موفقیت پرداخت
@@ -82,6 +82,6 @@ class PaymentController extends Controller
 
         // در اینجا اگر تحویل خودکار داری، می‌تونی شروع کنی
 
-        return redirect()->route('orders.show', $order)->with('ok', 'پرداخت با موفقیت انجام شد.');
+        return redirect()->route('orders.result', $order)->with('success','پرداخت با موفقیت انجام شد.');
     }
 }

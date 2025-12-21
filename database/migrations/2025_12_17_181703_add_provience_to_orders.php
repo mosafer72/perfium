@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->unsignedInteger('province')->nullable();
             $table->unsignedInteger('city')->nullable();
+            $table->unsignedInteger('address')->nullable();
+            $table->unsignedInteger('postalcode')->nullable();
         });
     }
 
@@ -25,6 +27,8 @@ return new class extends Migration
         Schema::table('orders', function (Blueprint $table) {
             $table->dropColumn("province");
             $table->dropColumn("city");
+            $table->dropColumn("address");
+            $table->dropColumn("postalcode");
         });
     }
 };

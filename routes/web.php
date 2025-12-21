@@ -7,6 +7,7 @@ require_once "user.php";
 use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\ProductController;
 use App\Http\Controllers\Site\CartController;
+use App\Http\Controllers\User\OrderCotroller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Site\CartCouponController;
 use App\Http\Controllers\User\CheckoutController;
@@ -27,7 +28,7 @@ use App\Http\Controllers\Auth\OtpAuthController;
 
 Route::middleware('guest')->group(function () {
     Route::get('/auth/phone', [OtpAuthController::class, 'showPhoneForm'])->name('otp.phone.form');
-    Route::post('/auth/send',  [OtpAuthController::class, 'send'])->name('otp.send');
+    Route::post('/auth/send',  action: [OtpAuthController::class, 'send'])->name('otp.send');
 
     Route::get('/auth/verify', [OtpAuthController::class, 'showVerifyForm'])->name('otp.verify.form');
     Route::post('/auth/verify', [OtpAuthController::class, 'verify'])->name('otp.verify');
@@ -40,11 +41,13 @@ Route::middleware('auth')->group(function () {
   Route::post('/cart/coupon/apply',  [CartCouponController::class, 'apply'])->name('cart.coupon.apply');
   Route::delete('/cart/coupon/remove', [CartCouponController::class, 'remove'])->name('cart.coupon.remove');
   // ساخت سفارش از روی سبد خرید (ایجاد order + order_items)
-  Route::get('/checkout/place-order', [CheckoutController::class, 'createOrder'])
+  Route::post('/checkout/place-order', [CheckoutController::class, 'createOrder'])
         ->name('checkout.place');
   Route::get('/payment/start/{order}', [PaymentController::class, 'start'])->name('payment.start');
   Route::match(['GET','POST'],'/payment/callback/{provider}', [PaymentController::class, 'callback'])
     ->name('payment.callback');
+    Route::get('/orders/result', [OrderCotroller::class,"result"])->middleware('auth')->name('orders.result');
+
 });
 
 

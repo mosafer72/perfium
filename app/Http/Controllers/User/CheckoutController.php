@@ -11,14 +11,23 @@ use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
-    public function createOrder()
+    public function createOrder(Request $request)
     {
+
+        $data=$request->validate([
+            'province'=>'required|integer|min:1',
+            'city'=>'required|integer|min:1',
+            'postalcode'=>'required|string|min:6',
+            'address'=>'required|string|min:6'
+        ]);
+
+
         $user = Auth::user();
         $cart = Cart::where('user_id', $user->id)->get();
         if ($cart->isEmpty()) {
             return back()->withErrors(['cart' => 'سبد خرید شما خالی است.']);
         }
-        
+
         return DB::transaction(function () use ($cart, $user) {
             // 1️⃣ محاسبه مبلغ‌ها
             $subtotal = $cart->sum(fn($i) => $i->qty * $i->unit_price);
@@ -35,7 +44,10 @@ class CheckoutController extends Controller
                 'total'           => $total,
                 'coupon_code'     => $coupon['code'] ?? null,
                 'currency'        => 'IRR',
-                'status'          => 'pending',
+                'province'          => 'pending',
+                'city'          => 'pending',
+                'postalcode'          => 'pending',
+                'address'          => 'pending',
             ]);
 
             // 3️⃣ انتقال آیتم‌های سبد خرید به order_items

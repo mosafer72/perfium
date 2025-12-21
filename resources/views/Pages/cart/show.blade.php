@@ -14,8 +14,8 @@
             <div class="page-content cat-wrap">
                 <div class="step-by pr-4 pl-4">
                     <h3 class="title title-simple title-step active"><a href="cart.html">1. سبد خرید</a></h3>
-                    <h3 class="title title-simple title-step"><a href="checkout.html">2. صورت حساب</a></h3>
-                    <h3 class="title title-simple title-step"><a href="order.html">3. تکمیل خرید</a></h3>
+                    <!-- <h3 class="title title-simple title-step"><a href="checkout.html">2. صورت حساب</a></h3> -->
+                    <h3 class="title title-simple title-step"><a href="order.html">2. تکمیل خرید</a></h3>
                 </div>
                 <div class="container">
                     <div class="row">
@@ -56,10 +56,10 @@
                                             </td>
                                             <td class="product-quantity">
                                                 <!-- <div class="input-group">
-                                                                                    <button class="quantity-minus d-icon-minus"></button>
-                                                                                    <input class="quantity form-control" type="number" min="1" max="1000000">
-                                                                                    <button class="quantity-plus d-icon-plus"></button>
-                                                                                </div> -->
+                                                                                            <button class="quantity-minus d-icon-minus"></button>
+                                                                                            <input class="quantity form-control" type="number" min="1" max="1000000">
+                                                                                            <button class="quantity-plus d-icon-plus"></button>
+                                                                                        </div> -->
                                             </td>
                                             <td class="product-price">
                                                 <span class="amount">{{ number_format($product->unit_price * $product->qty) }}
@@ -79,9 +79,6 @@
                                     class="btn btn-dark btn-md btn-rounded btn-icon-left btn-gradient ml-4 mb-4">
                                     ادامه خرید<i class="fa-light fa-angles-left"></i>
                                 </a>
-                                <button type="submit" class="btn btn-outline btn-dark btn-md btn-rounded btn-disabled">
-                                    به روز رسانی سبد خرید
-                                </button>
                             </div>
                             <div class="cart-coupon-box mb-8">
                                 <h4 class="title coupon-title ls-m"> کد تخفیف</h4>
@@ -96,7 +93,7 @@
                             $subtotal = collect($cart)->sum(fn($i) => $i->qty * $i->unit_price);
                             $coupon = session('cart_coupon');
                             $discount = $coupon['discount'] ?? 0;
-                            $payable = max($subtotal - $discount, 0)+90000;
+                            $payable = max($subtotal - $discount, 0) + 90000;
                         @endphp
                         <aside class="col-lg-4 sticky-sidebar-wrapper">
                             <div class="pin-wrapper" style="height: 813.109px;">
@@ -104,6 +101,16 @@
                                     style="border-bottom: 0px none rgb(102, 102, 102); width: 446.656px;">
                                     <div class="summary mb-4">
                                         <h3 class="summary-title">جمع سبد خرید</h3>
+                                        @if ($errors->any())
+                                            <div class="alert alert-warning">
+                                                <ul class="m-0">
+                                                    @foreach ($errors->all() as $error)
+                                                        <li>{{ $error }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        @endif
+
                                         <table class="shipping">
                                             <tbody>
                                                 <tr class="summary-subtotal">
@@ -133,38 +140,45 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <div class="shipping-address">
-                                            <label>ارسال خرید به <strong>شیراز</strong></label>
-                                            <div class="select-box">
-                                                <select name="country"  onchange="getcities(this.value)" class="form-control" id="state">
+                                        <form action="{{ route("checkout.place") }}" method="POST">
+                                            @csrf
+                                            <div class="shipping-address">
+                                                <label>ارسال خرید به <strong>شیراز</strong></label>
+                                                <div class="select-box">
+                                                    <select name="province" onchange="getcities(this.value)"
+                                                        class="form-control" id="state">
 
-                                                </select>
+                                                    </select>
+                                                </div>
+                                                <div class="select-box">
+                                                    <select name="city" class="form-control" id="city">
+                                                    </select>
+                                                </div>
+                                                <input type="text" class="form-control" name="address" placeholder="آدرس"
+                                                    value="{{ old("address", '') }}">
+                                                <input type="text" class="form-control" name="postalcode"
+                                                    placeholder="گد پستی" value="{{ old("postalcode") }}">
                                             </div>
-                                            <div class="select-box">
-                                                <select name="country" class="form-control"  id="city">
+                                            <table class="total">
+                                                <tbody>
+                                                    <tr class="summary-subtotal">
+                                                        <td>
+                                                            <h4 class="summary-subtitle">جمع</h4>
+                                                        </td>
+                                                        <td>
+                                                            <p class="summary-total-price ls-s">
+                                                                {{ number_format($payable) }}
+                                                                تومان</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <button type="sumbit"
+                                                class="btn btn-dark btn-checkout btn-rounded btn-md btn-block btn-gradient">
+                                                پرداخت
+                                            </a>
+                                        </form>
 
-                                                </select>
-                                            </div>
-                                            <input type="text" class="form-control" name="address" placeholder="آدرس">
-                                            <input type="text" class="form-control" name="code" placeholder="گد پستی">
-                                        </div>
-                                        <table class="total">
-                                            <tbody>
-                                                <tr class="summary-subtotal">
-                                                    <td>
-                                                        <h4 class="summary-subtitle">جمع</h4>
-                                                    </td>
-                                                    <td>
-                                                        <p class="summary-total-price ls-s">{{ number_format($payable) }}
-                                                            تومان</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <a href="#"
-                                            class="btn btn-dark btn-checkout btn-rounded btn-md btn-block btn-gradient"
-                                            data-toggle="modal" data-target="#addCartModal" title="اضافه به خرید"> صورت حساب
-                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -440,7 +454,7 @@
             }
         }
         getcities(1);
-        async function getcities (stateId) {
+        async function getcities(stateId) {
             console.log(stateId)
             let citySelect = $("#city");
 
@@ -449,7 +463,7 @@
 
             if (!stateId) return;
 
-            const url_city = "https://www.iran-locations-api.ir/api/v1/fa/cities?state_id="+stateId
+            const url_city = "https://www.iran-locations-api.ir/api/v1/fa/cities?state_id=" + stateId
             try {
                 const response = await fetch(url_city);
                 if (!response.ok) {
