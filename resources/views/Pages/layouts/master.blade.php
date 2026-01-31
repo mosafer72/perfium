@@ -17,6 +17,7 @@
     <link rel="stylesheet" type="text/css" href="/assets/plugin/photoswipe/default-skin/default-skin.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/plugin/sticky-icon/stickyicon.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/main-min.css">
+    @yield("css")
 </head>
 <body>
     <div class="bg-loader">

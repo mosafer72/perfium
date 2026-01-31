@@ -67,6 +67,8 @@ Route::prefix("admin/file-manager")->middleware("auth")->name("admin.fm.")->grou
 
 Route::get('/product/{slug}', [ProductController::class, 'show'])
     ->name('product.show');
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
 
 // اگر قبلاً با id داشتی (اختیاری):
 Route::get('/product-id/{id}', [ProductController::class, 'showById'])

@@ -133,10 +133,16 @@
                                                     value="1">
                                                 <button class="quantity-plus d-icon-plus"></button>
                                             </div>
+                                            @if($product->quantity != 0)
+                                                <button data-product-id="{{ $product->id }}" class="btn-product btn-cart">
+                                                    اضافه به خرید <i class="fa-light fa-basket-shopping-simple"></i>
+                                                </button>
+                                            @else
+                                                <button class="btn-product">
+                                                   ناموجود<i class="fa-light fa-basket-shopping-simple"></i>
+                                                </button>
+                                            @endif
 
-                                            <button data-product-id="{{ $product->id }}" class="btn-product btn-cart" @if($product->quantity == 0) disabled @endif>
-                                                اضافه به خرید <i class="fa-light fa-basket-shopping-simple"></i>
-                                            </button>
 
                                         </div>
                                     </div>

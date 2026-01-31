@@ -542,7 +542,7 @@ window.themeparsi = {};
                     step: 1000,
                     range: {
                         min: 10000,
-                        max: 500000
+                        max: 50000000
                     }
                 }, option));
                 // Update Price Range

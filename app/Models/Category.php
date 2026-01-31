@@ -23,7 +23,11 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
-
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id')
+            ->where('is_active', 1);
+    }
     // فقط دسته‌های فعال
     public function scopeActive($query)
     {

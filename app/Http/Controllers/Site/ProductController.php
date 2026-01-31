@@ -6,9 +6,60 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Comment;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function index(Request $request)
+    {
+
+
+        $query = Product::query()->where('is_active', 1);
+
+        // فیلتر دسته‌بندی
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->category);
+        }
+
+        // فیلتر قیمت
+        if ($request->filled('min_price')) {
+            $query->where('price', '>=', $request->min_price);
+        }
+
+        if ($request->filled('max_price')) {
+            $query->where('price', '<=', $request->max_price);
+        }
+
+        // ترتیب نمایش
+        switch ($request->sort) {
+            case 'cheap':
+                $query->orderBy('price', 'asc');
+                break;
+            case 'expensive':
+                $query->orderBy('price', 'desc');
+                break;
+            case 'best_seller':
+                $query->orderBy('sales_count', 'desc');
+                break;
+            default:
+                $query->latest();
+        }
+
+
+        $perPage = $request->get('per_page', 4);
+
+        $products = $query->paginate($perPage)->withQueryString();
+
+        $categories = Category::all();
+
+         if ($request->ajax()) {
+            return view('Pages.productss._list', compact('products'))->render();
+        }
+
+        return view('Pages.productss.index', compact('products', 'categories'));
+    }
+
+
     // نمایش بر اساس slug
     public function show($slug)
     {
@@ -33,7 +84,7 @@ class ProductController extends Controller
             ->take(8)
             ->get();
 
-        return view('Pages.product.product', compact('product', 'comments', 'related'));
+        return view('Pages.products.product', compact('product', 'comments', 'related'));
     }
 
     // اگر خواستی با id هم ساپورت بشه
@@ -47,7 +98,7 @@ class ProductController extends Controller
 
         // ریدایرکت قشنگ به slug
         if ($product->slug) {
-            return redirect()->route('product.show', $product->slug);
+            return redirect()->route('products.show', $product->slug);
         }
 
         // اگر slug نداره، از همین ویو استفاده کن
@@ -64,6 +115,6 @@ class ProductController extends Controller
             ->take(8)
             ->get();
 
-        return view('Pages.product.product', compact('product', 'comments', 'related'));
+        return view('Pages.productss.product', compact('product', 'comments', 'related'));
     }
 }

@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     public function index(Request $request){
-        $user = auth()->user();
-        return view("Pages.user.profile",compact("user"));
+        // $user = auth()->user();
+        // return view("pages.user.account",compact("user"));
+        return view("pages.user.account");
     }
 }
